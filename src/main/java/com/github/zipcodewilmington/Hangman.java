@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington;
 
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -10,13 +11,18 @@ import java.util.Scanner;
  */
 public class Hangman {
 
-    String words[] = new String[]{ "java", "array", "zipcode", "agile", "software"};
+    public Hangman () {}
 
-    String randomWord = words[(int) (Math.random()) * words.length()];
-    int lives = 0;
+    public static void main (String[] args) {
+        Hangman game = new Hangman();
+        game.playGame();
+    }
 
     Scanner scanner = new Scanner(System.in);
-
+    Random random = new Random();
+    int wordGenerator = random.nextInt();
+    int numOfLives = 0;
+    String[] words = {"java", "hangman", "zipcode", "delaware", "kirkwood"};
 
 
 
