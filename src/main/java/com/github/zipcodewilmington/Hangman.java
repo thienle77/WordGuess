@@ -24,8 +24,9 @@ public class Hangman {
     int numOfGuesses = 0;
     String[] wordBank = {"java", "hangman", "zipcode", "delaware", "kirkwood", "target"};
 
-    Character[] randomWord;
-    Character[] displayWord;
+    Character[] currentRandomWord;
+    Character[] currentGuessWord;
+
 
     private void playGame() {
         gameDisplay();
@@ -33,9 +34,16 @@ public class Hangman {
     }
 
     private void gameDisplay() {
+        System.out.println("Current guesses");
+        System.out.println(this.currentGuessWord);
+        System.out.println("There are" + this.numOfGuesses + "left.");
     }
 
     private void announceGame() {
+        System.out.println("Let's play Word Guess");
     }
+
+
+
 
 }
