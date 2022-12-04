@@ -2,7 +2,7 @@ package com.github.zipcodewilmington;
 // T
 
 import java.util.Random;
-import java.util.Scanner;
+
 
 /**
  * @author xt0fer
@@ -18,30 +18,60 @@ public class Hangman {
         game.playGame();
     }
 
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    int wordGenerator = random.nextInt(6);
     int numOfGuesses = 0;
-    String[] wordBank = {"java", "hangman", "zipcode", "delaware", "kirkwood", "target"};
+    String[] wordBank = {"java", "hangman", "zipcode"};
 
-    Character[] currentRandomWord;
-    Character[] currentGuessWord;
+    char[] currentRandomWord;
+    char[] currentGuessWord;
 
-
-    private void playGame() {
-        gameDisplay();
+    public void runGame(){
         announceGame();
+        initializeGameState();
+        while (currentGuessWord != currentRandomWord){
+            printCurrentState();
+            numOfGuesses++;
+            if(numOfGuesses == '-'){
+                System.exit(0);
+            } if (currentGuessWord.equals(currentRandomWord)) {
+                playerWins();
+            }
+        }
+        playerLoses();
+        askPlayAgain();
     }
-
-    private void gameDisplay() {
-        System.out.println("Current guesses");
-        System.out.println(this.currentGuessWord);
-        System.out.println("There are" + this.numOfGuesses + "left.");
+    public void printCurrentState() {
     }
+    public void initializeGameState() {
+    }
+    public char[] getRandomWord(){
+        Random random = new Random();
+        int randIndex = random.nextInt(this.wordBank.length);
+        this.currentRandomWord = this.wordBank[randIndex].toCharArray();
+        return this.currentRandomWord;
 
-    private void announceGame() {
+    }
+    public void playGame() {
+        announceGame();
+        gameDisplay();
+    }
+    public void announceGame() {
         System.out.println("Let's play Word Guess");
     }
+
+    public void gameDisplay() {
+        System.out.println("Current guesses");
+        System.out.println("There are " + this.numOfGuesses + " left.");
+    }
+    public void askPlayAgain() {
+    }
+
+    public void playerLoses() {
+    }
+
+    public void playerWins() {
+    }
+
+
 
 
 
