@@ -20,7 +20,7 @@ public class Hangman {
         Hangman game = new Hangman();
         game.runGame();
     }
-    String[] wb = {"chiefs", "lakers", "eagles"};
+    String[] wb = {"lakers", "eagles", "titans", "devils", "saints"};
     Scanner scanner = new Scanner(System.in);
     Random randomWord = new Random();
     int randomWordGenerator = randomWord.nextInt(6);
@@ -59,12 +59,13 @@ public class Hangman {
     }
 
     public void initializeGameState() {
+        System.out.println("Guess a letter: ");
         cGW = new char[]{'_','_','_','_','_','_'};
         cRW = wb[randomWordGenerator].toCharArray();
     }
 
     public Character getNextGuess() {
-        System.out.println("Guess a letter: ");
+        System.out.println();
         return scanner.next().charAt(0);
     }
 
