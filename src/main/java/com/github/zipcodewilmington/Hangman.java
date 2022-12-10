@@ -1,6 +1,8 @@
 package com.github.zipcodewilmington;
 // T
 
+
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,78 +14,94 @@ import java.util.Scanner;
  */
 public class Hangman {
 
-    public Hangman () {}
+    public Hangman(){}
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         Hangman game = new Hangman();
-        game.playGame();
+        game.runGame();
     }
+    String[] wb = {"chiefs", "lakers", "eagles"};
+    Scanner scanner = new Scanner(System.in);
+    Random randomWord = new Random();
+    int randomWordGenerator = randomWord.nextInt(6);
+    int numOfGuesses = 0; // current guesses
+    char[] cRW; // current random word
+    char[] cGW; // current guess word
 
-    int numOfGuesses = 0;
-    String[] wordBank = {"branch", "format", "client"};
 
-    char[] currentRandomWord;
-    char[] currentGuessWord;
+    public void runGame() {
+       announceGame();
+       initializeGameState();
+       while (!isWordGuessed()){
+           printStatus();
+           process(getNextGuess());
+           numOfGuesses++;
+           if(numOfGuesses == 6){
+               playerLoses();
+           }
 
-    public void runGame(){
-        announceGame();
-        initializeGameState();
-        while (currentGuessWord != currentRandomWord){
-            printCurrentState();
-            numOfGuesses++;
-            if(numOfGuesses == '-'){
-                System.exit(0);
-            } if (currentGuessWord.equals(currentRandomWord)) {
-                playerWins();
-            }
+       }
+       playerWins();
+       gameOver();
+       askToPlayAgain();
+    }
+    public void printArray(char[] charArray) {
+        for (int i = 0; i < charArray.length; i++) {
+            System.out.print(charArray[i] + " ");
         }
-        playerLoses();
-        askPlayAgain();
-    }
-    public void printCurrentState() {
-    }
-    public void initializeGameState() {
-        char[] c = currentRandomWord;
-        boolean gameWon = false;
-        boolean playerLoses = false;
-        numOfGuesses = 6;
-    }
-    public char[] getRandomWord(){
-        Random random = new Random();
-        int randIndex = random.nextInt(this.wordBank.length);
-        this.currentRandomWord = this.wordBank[randIndex].toCharArray();
-        return this.currentRandomWord;
-
-    }
-    public void playGame() {
-        announceGame();
-        gameDisplay();
     }
     public void announceGame() {
-        System.out.println("Let's play Word Guess");
+        System.out.println("Let's play Hangman");
     }
 
-    public void gameDisplay() {
-        System.out.println("Current guesses");
-        System.out.println("There are " + this.numOfGuesses + " guesses " + "left.");
-    }
-    public static boolean askPlayAgain() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Would you like to play again? (y/n)");
-        String playAgain = input.nextLine();
-        return playAgain.equals("y");
-
+    public void gameOver() {
+        System.out.println("Game over.");
     }
 
+    public void initializeGameState() {
+        cGW = new char[]{'_','_','_','_','_','_'};
+        cRW = wb[randomWordGenerator].toCharArray();
+    }
+
+    public Character getNextGuess() {
+        System.out.println("Guess a letter: ");
+        return scanner.next().charAt(0);
+    }
+
+    public boolean isWordGuessed(){
+        return Arrays.equals(cRW,cGW);
+    }
+
+    public void printStatus() {
+        this.printArray(cGW);
+    }
+
+    public void process(Character guess) {
+        for (int i = 0; i < cRW.length; i++) {
+            if (cRW[i] == guess) {
+                cGW[i] = cRW[i];
+            }
+        }
+    }
     public void playerLoses() {
+        System.out.println("You ran out of guesses, you lost :(");
+        askToPlayAgain();
     }
 
     public void playerWins() {
+        System.out.println("Congratulations, you won!");
+        askToPlayAgain();
     }
 
-
-
-
+    public void askToPlayAgain() {
+        System.out.println("Do you want to play again? \n 1 for yes or 2 for no");
+        int playerInput = scanner.nextInt();
+        if (playerInput == 1) {
+            runGame();
+        } else {
+            System.exit(0);
+        }
+    }
 
 
 }
