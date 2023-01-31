@@ -55,7 +55,7 @@ public class Hangman {
     }
 
     public void gameOver() {
-        System.out.println("Aw game over.");
+        System.out.println("Womp Womp Womp, Game Over");
     }
 
     public void initializeGameState() {
