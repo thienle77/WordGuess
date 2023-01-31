@@ -55,7 +55,7 @@ public class Hangman {
     }
 
     public void gameOver() {
-        System.out.println("Game over.");
+        System.out.println("Aw game over.");
     }
 
     public void initializeGameState() {
@@ -85,17 +85,17 @@ public class Hangman {
         }
     }
     public void playerLoses() {
-        System.out.println("You ran out of guesses, you lost :(");
+        System.out.println("You've ran out of guesses, you lost :(");
         askToPlayAgain();
     }
 
     public void playerWins() {
-        System.out.println("Congratulations, you won!");
+        System.out.println("Congrats, you won!");
         askToPlayAgain();
     }
 
     public void askToPlayAgain() {
-        System.out.println("Do you want to play again? \n 1 for yes or 2 for no");
+        System.out.println("Do you want to play again? \n 1 for yes / 2 for no");
         int playerInput = scanner.nextInt();
         if (playerInput == 1) {
             runGame();
@@ -103,6 +103,4 @@ public class Hangman {
             System.exit(0);
         }
     }
-
-
 }
